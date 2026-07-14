@@ -50,10 +50,16 @@ func main() {
 	sessions.Cookie.HttpOnly = true
 	sessions.Cookie.SameSite = http.SameSiteLaxMode
 
+	csrfKey := os.Getenv("BIDGO_CSRF_KEY")
+	if csrfKey == "" {
+		panic("BIDGO_CSRF_KEY is not set")
+	}
+
 	api := api.Api{
 		Router:      chi.NewMux(),
 		Sessions:    sessions,
 		UserService: services.NewUserService(pool),
+		CSRFKey:     []byte(csrfKey),
 	}
 
 	api.BindRoutes()

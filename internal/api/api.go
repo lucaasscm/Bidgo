@@ -10,4 +10,5 @@ type Api struct {
 	Router      *chi.Mux
 	Sessions    *scs.SessionManager
 	UserService services.UserService
+	CSRFKey     []byte
 }
