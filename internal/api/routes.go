@@ -29,6 +29,18 @@ func (api *Api) BindRoutes() {
 					r.Post("/logout", api.handleLogoutUser)
 				})
 			})
+
+			r.Route("/products", func(r chi.Router) {
+				r.Get("/", api.handleListProducts)
+				r.Get("/{id}", api.handleGetProduct)
+
+				r.Group(func(r chi.Router) {
+					r.Use(api.AuthMiddleware)
+					r.Post("/", api.handleCreateProduct)
+					r.Put("/{id}", api.handleUpdateProduct)
+					r.Delete("/{id}", api.handleDeleteProduct)
+				})
+			})
 		})
 	})
 }

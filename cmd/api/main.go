@@ -56,10 +56,11 @@ func main() {
 	}
 
 	api := api.Api{
-		Router:      chi.NewMux(),
-		Sessions:    sessions,
-		UserService: services.NewUserService(pool),
-		CSRFKey:     []byte(csrfKey),
+		Router:         chi.NewMux(),
+		Sessions:       sessions,
+		UserService:    services.NewUserService(pool),
+		ProductService: services.NewProductService(pool),
+		CSRFKey:        []byte(csrfKey),
 	}
 
 	api.BindRoutes()
