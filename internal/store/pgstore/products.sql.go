@@ -69,6 +69,29 @@ func (q *Queries) GetProductById(ctx context.Context, id uuid.UUID) (Product, er
 	return i, err
 }
 
+const getProductByIdForUpdate = `-- name: GetProductByIdForUpdate :one
+SELECT id, product_name, base_price, seller_id, auction_end, is_sold, created_at, updated_at
+FROM products
+WHERE id = $1
+FOR UPDATE
+`
+
+func (q *Queries) GetProductByIdForUpdate(ctx context.Context, id uuid.UUID) (Product, error) {
+	row := q.db.QueryRow(ctx, getProductByIdForUpdate, id)
+	var i Product
+	err := row.Scan(
+		&i.ID,
+		&i.ProductName,
+		&i.BasePrice,
+		&i.SellerID,
+		&i.AuctionEnd,
+		&i.IsSold,
+		&i.CreatedAt,
+		&i.UpdatedAt,
+	)
+	return i, err
+}
+
 const listProducts = `-- name: ListProducts :many
 SELECT id, product_name, base_price, seller_id, auction_end, is_sold, created_at, updated_at
 FROM products

@@ -33,12 +33,14 @@ func (api *Api) BindRoutes() {
 			r.Route("/products", func(r chi.Router) {
 				r.Get("/", api.handleListProducts)
 				r.Get("/{id}", api.handleGetProduct)
+				r.Get("/{id}/bids", api.handleListProductBids)
 
 				r.Group(func(r chi.Router) {
 					r.Use(api.AuthMiddleware)
 					r.Post("/", api.handleCreateProduct)
 					r.Put("/{id}", api.handleUpdateProduct)
 					r.Delete("/{id}", api.handleDeleteProduct)
+					r.Post("/{id}/bids", api.handleCreateBid)
 				})
 			})
 		})

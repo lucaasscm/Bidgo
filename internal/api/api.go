@@ -11,5 +11,6 @@ type Api struct {
 	Sessions       *scs.SessionManager
 	UserService    services.UserService
 	ProductService services.ProductService
+	BidsService    services.BidsService
 	CSRFKey        []byte
 }
