@@ -60,6 +60,7 @@ func main() {
 		Sessions:       sessions,
 		UserService:    services.NewUserService(pool),
 		ProductService: services.NewProductService(pool),
+		BidsService:    services.NewBidsService(pool),
 		CSRFKey:        []byte(csrfKey),
 	}
 

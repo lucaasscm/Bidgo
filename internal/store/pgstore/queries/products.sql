@@ -8,6 +8,12 @@ SELECT id, product_name, base_price, seller_id, auction_end, is_sold, created_at
 FROM products
 WHERE id = $1;
 
+-- name: GetProductByIdForUpdate :one
+SELECT id, product_name, base_price, seller_id, auction_end, is_sold, created_at, updated_at
+FROM products
+WHERE id = $1
+FOR UPDATE;
+
 -- name: ListProducts :many
 SELECT id, product_name, base_price, seller_id, auction_end, is_sold, created_at, updated_at
 FROM products
